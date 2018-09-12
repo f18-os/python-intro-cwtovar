@@ -2,6 +2,10 @@
 
 import os, sys, time, re
 
+if '>' in sys.args:
+
+elif '<' in sys.args:
+
 pid = os.getpid()               # get and remember pid
 
 os.write(1, ("About to fork (pid=%d)\n" % pid).encode())
