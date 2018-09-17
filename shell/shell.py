@@ -2,13 +2,18 @@
 
 import os, sys, time, re
 
-if '>' in sys.args:
-
-elif '<' in sys.args:
+def getPostion(command, searchee):
+    for idx, operand in enumerate(command):
+        if operand == searchee:
+            return idx
+position=0
+directive=input("Shell of the Tovar $>").split()
+if '>' in directive:
+    position=getPostion(directive, '>')
 
 pid = os.getpid()               # get and remember pid
 
-os.write(1, ("About to fork (pid=%d)\n" % pid).encode())
+os.write(1, ("About to fork (pid=%d)\n" % pid).encode())''
 
 rc = os.fork()
 
@@ -19,10 +24,10 @@ if rc < 0:
 elif rc == 0:                   # child
     os.write(1, ("Child: My pid==%d.  Parent's pid=%d\n" % 
                  (os.getpid(), pid)).encode())
-    args = ["wc", "p3-exec.py"]
+    args = directive.remove(position)
 
     os.close(1)                 # redirect child's stdout
-    sys.stdout = open("p4-output.txt", "w")
+    sys.stdout = open(args[position], "w")
     fd = sys.stdout.fileno() # os.open("p4-output.txt", os.O_CREAT)
     os.set_inheritable(fd, True)
     os.write(2, ("Child: opened fd=%d for writing\n" % fd).encode())
@@ -30,7 +35,7 @@ elif rc == 0:                   # child
     for dir in re.split(":", os.environ['PATH']): # try each directory in path
         program = "%s/%s" % (dir, args[0])
         try:
-            os.execve(program, args, os.environ) # try to exec program
+            os.execve(program, args, os.environ) # try to exec program 
         except FileNotFoundError:             # ...expected
             pass                              # ...fail quietly 
 
@@ -42,4 +47,4 @@ else:                           # parent (forked ok)
                  (pid, rc)).encode())
     childPidCode = os.wait()
     os.write(1, ("Parent: Child %d terminated with exit code %d\n" % 
-                 childPidCode).encode())
+                 childPidCode).encode())+
