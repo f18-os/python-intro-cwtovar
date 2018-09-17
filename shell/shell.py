@@ -6,7 +6,7 @@ def getPostion(command, searchee):
     for idx, operand in enumerate(command):
         if operand == searchee:
             return idx
-while(True)
+while(True):
     position=0
     directive=input("Shell of the Tovar $>").split()
     print(directive)
