@@ -13,7 +13,7 @@ if '>' in directive:
 
 pid = os.getpid()               # get and remember pid
 
-os.write(1, ("About to fork (pid=%d)\n" % pid).encode())''
+os.write(1, ("About to fork (pid=%d)\n" % pid).encode())
 
 rc = os.fork()
 
@@ -47,4 +47,4 @@ else:                           # parent (forked ok)
                  (pid, rc)).encode())
     childPidCode = os.wait()
     os.write(1, ("Parent: Child %d terminated with exit code %d\n" % 
-                 childPidCode).encode())+
+                 childPidCode).encode())
