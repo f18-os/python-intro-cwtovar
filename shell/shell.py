@@ -8,10 +8,12 @@ def getPostion(command, searchee):
             return idx
 position=0
 directive=input("Shell of the Tovar $>").split()
+print(directive)
 if '>' in directive:
-    position=getPostion(directive, '>')
+    position=int(getPostion(directive, '>'))
 
 pid = os.getpid()               # get and remember pid
+print('position', position)
 
 os.write(1, ("About to fork (pid=%d)\n" % pid).encode())
 
@@ -24,7 +26,9 @@ if rc < 0:
 elif rc == 0:                   # child
     os.write(1, ("Child: My pid==%d.  Parent's pid=%d\n" % 
                  (os.getpid(), pid)).encode())
-    args = directive.remove(position)
+    del directive[position]
+    args=directive
+    print('args', args)
 
     os.close(1)                 # redirect child's stdout
     sys.stdout = open(args[position], "w")
