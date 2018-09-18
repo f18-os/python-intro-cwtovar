@@ -1,0 +1,3 @@
+  55  189 1986 shell.py
+   1    4   24 test.txt
+  56  193 2010 total
